@@ -185,7 +185,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureDataLakeStoreLocation",
-						"fileName": "tags.csv",
+						"fileName": "movies.csv",
 						"folderPath": "input"
 					},
 					"columnDelimiter": ",",
