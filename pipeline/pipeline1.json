@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "copydata",
+				"name": "copypipelinedata",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -27,7 +27,7 @@
 					"source": {
 						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
+							"type": "AzureDataLakeStoreReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
@@ -38,7 +38,7 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureDataLakeStoreWriteSettings"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",

@@ -2,15 +2,15 @@
 	"name": "OutputDataset",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "linkedServicefinal",
+			"referenceName": "outputlink",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
-				"fileSystem": "output"
+				"type": "AzureDataLakeStoreLocation",
+				"folderPath": "output"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

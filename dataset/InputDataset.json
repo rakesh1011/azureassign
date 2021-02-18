@@ -2,16 +2,16 @@
 	"name": "InputDataset",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "linkedServicefinal",
+			"referenceName": "inputlink",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
+				"type": "AzureDataLakeStoreLocation",
 				"fileName": "tags.csv",
-				"fileSystem": "input"
+				"folderPath": "input"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
