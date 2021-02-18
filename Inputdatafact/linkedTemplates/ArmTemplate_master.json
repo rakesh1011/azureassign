@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
 		},
+		"linkedServicefinal_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'linkedServicefinal'"
+		},
 		"AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri": {
 			"type": "string",
 			"defaultValue": "https://projectdatalake.azuredatalakestore.net/webhdfs/v1"
@@ -40,6 +44,42 @@
 			"defaultValue": "e0765ba1-a1e1-469a-9c8b-77e45dd84c18"
 		},
 		"AzureDataLakeStore2_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "assignment"
+		},
+		"inputlink_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://projectdatalake.azuredatalakestore.net/webhdfs/v1"
+		},
+		"inputlink_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "a4431f4b-c207-4733-9530-34c08a9b2b8d"
+		},
+		"inputlink_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "e0765ba1-a1e1-469a-9c8b-77e45dd84c18"
+		},
+		"inputlink_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "assignment"
+		},
+		"linkedServicefinal_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://movielens.dfs.core.windows.net"
+		},
+		"outputlink_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://projectdatalake.azuredatalakestore.net/webhdfs/v1"
+		},
+		"outputlink_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "a4431f4b-c207-4733-9530-34c08a9b2b8d"
+		},
+		"outputlink_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "e0765ba1-a1e1-469a-9c8b-77e45dd84c18"
+		},
+		"outputlink_properties_typeProperties_resourceGroupName": {
 			"type": "string",
 			"defaultValue": "assignment"
 		},
@@ -73,6 +113,9 @@
 					"AzureStorageLinkedService_connectionString": {
 						"value": "[parameters('AzureStorageLinkedService_connectionString')]"
 					},
+					"linkedServicefinal_accountKey": {
+						"value": "[parameters('linkedServicefinal_accountKey')]"
+					},
 					"AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri": {
 						"value": "[parameters('AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri')]"
 					},
@@ -96,6 +139,33 @@
 					},
 					"AzureDataLakeStore2_properties_typeProperties_resourceGroupName": {
 						"value": "[parameters('AzureDataLakeStore2_properties_typeProperties_resourceGroupName')]"
+					},
+					"inputlink_properties_typeProperties_dataLakeStoreUri": {
+						"value": "[parameters('inputlink_properties_typeProperties_dataLakeStoreUri')]"
+					},
+					"inputlink_properties_typeProperties_tenant": {
+						"value": "[parameters('inputlink_properties_typeProperties_tenant')]"
+					},
+					"inputlink_properties_typeProperties_subscriptionId": {
+						"value": "[parameters('inputlink_properties_typeProperties_subscriptionId')]"
+					},
+					"inputlink_properties_typeProperties_resourceGroupName": {
+						"value": "[parameters('inputlink_properties_typeProperties_resourceGroupName')]"
+					},
+					"linkedServicefinal_properties_typeProperties_url": {
+						"value": "[parameters('linkedServicefinal_properties_typeProperties_url')]"
+					},
+					"outputlink_properties_typeProperties_dataLakeStoreUri": {
+						"value": "[parameters('outputlink_properties_typeProperties_dataLakeStoreUri')]"
+					},
+					"outputlink_properties_typeProperties_tenant": {
+						"value": "[parameters('outputlink_properties_typeProperties_tenant')]"
+					},
+					"outputlink_properties_typeProperties_subscriptionId": {
+						"value": "[parameters('outputlink_properties_typeProperties_subscriptionId')]"
+					},
+					"outputlink_properties_typeProperties_resourceGroupName": {
+						"value": "[parameters('outputlink_properties_typeProperties_resourceGroupName')]"
 					}
 				}
 			},

@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
 		},
+		"linkedServicefinal_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'linkedServicefinal'"
+		},
 		"AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri": {
 			"type": "string",
 			"defaultValue": "https://projectdatalake.azuredatalakestore.net/webhdfs/v1"
@@ -40,6 +44,42 @@
 			"defaultValue": "e0765ba1-a1e1-469a-9c8b-77e45dd84c18"
 		},
 		"AzureDataLakeStore2_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "assignment"
+		},
+		"inputlink_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://projectdatalake.azuredatalakestore.net/webhdfs/v1"
+		},
+		"inputlink_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "a4431f4b-c207-4733-9530-34c08a9b2b8d"
+		},
+		"inputlink_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "e0765ba1-a1e1-469a-9c8b-77e45dd84c18"
+		},
+		"inputlink_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "assignment"
+		},
+		"linkedServicefinal_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://movielens.dfs.core.windows.net"
+		},
+		"outputlink_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://projectdatalake.azuredatalakestore.net/webhdfs/v1"
+		},
+		"outputlink_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "a4431f4b-c207-4733-9530-34c08a9b2b8d"
+		},
+		"outputlink_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "e0765ba1-a1e1-469a-9c8b-77e45dd84c18"
+		},
+		"outputlink_properties_typeProperties_resourceGroupName": {
 			"type": "string",
 			"defaultValue": "assignment"
 		}
@@ -94,21 +134,90 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/inputlink')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "[parameters('inputlink_properties_typeProperties_dataLakeStoreUri')]",
+					"tenant": "[parameters('inputlink_properties_typeProperties_tenant')]",
+					"subscriptionId": "[parameters('inputlink_properties_typeProperties_subscriptionId')]",
+					"resourceGroupName": "[parameters('inputlink_properties_typeProperties_resourceGroupName')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/linkedServicefinal')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('linkedServicefinal_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('linkedServicefinal_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/outputlink')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "[parameters('outputlink_properties_typeProperties_dataLakeStoreUri')]",
+					"tenant": "[parameters('outputlink_properties_typeProperties_tenant')]",
+					"subscriptionId": "[parameters('outputlink_properties_typeProperties_subscriptionId')]",
+					"resourceGroupName": "[parameters('outputlink_properties_typeProperties_resourceGroupName')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger2')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 15,
+						"startTime": "2021-02-18T07:05:00Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/InputDataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureStorageLinkedService",
+					"referenceName": "inputlink",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "movies.csv",
-						"container": "input"
+						"type": "AzureDataLakeStoreLocation",
+						"fileName": "tags.csv",
+						"folderPath": "input"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -131,7 +240,7 @@
 				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+				"[concat(variables('factoryId'), '/linkedServices/inputlink')]"
 			]
 		},
 		{
@@ -140,16 +249,15 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureStorageLinkedService",
+					"referenceName": "outputlink",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "movies.csv",
-						"container": "output"
+						"type": "AzureDataLakeStoreLocation",
+						"folderPath": "output"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -172,32 +280,41 @@
 				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+				"[concat(variables('factoryId'), '/linkedServices/outputlink')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/CopyPipeline')]",
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "copypipelinedata",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
 							"retryIntervalInSeconds": 30,
-							"secureOutput": true,
-							"secureInput": true
+							"secureOutput": false,
+							"secureInput": false
 						},
-						"userProperties": [],
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "input//ratings.csv"
+							},
+							{
+								"name": "Destination",
+								"value": "//"
+							}
+						],
 						"typeProperties": {
 							"source": {
 								"type": "DelimitedTextSource",
 								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
+									"type": "AzureDataLakeStoreReadSettings",
 									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
@@ -208,7 +325,7 @@
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
+									"type": "AzureDataLakeStoreWriteSettings"
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
@@ -247,67 +364,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/InputDataset')]",
 				"[concat(variables('factoryId'), '/datasets/OutputDataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/trigger1')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "CopyPipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 15,
-						"startTime": "2021-02-18T05:16:00Z",
-						"endTime": "2021-02-19T05:16:00Z",
-						"timeZone": "UTC"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/CopyPipeline')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/trigger2')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "CopyPipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 15,
-						"startTime": "2021-02-18T07:05:00Z",
-						"timeZone": "UTC"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/CopyPipeline')]"
 			]
 		}
 	]

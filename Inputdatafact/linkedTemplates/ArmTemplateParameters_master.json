@@ -8,6 +8,9 @@
 		"AzureStorageLinkedService_connectionString": {
 			"value": ""
 		},
+		"linkedServicefinal_accountKey": {
+			"value": ""
+		},
 		"AzureDataLakeStore1_properties_typeProperties_dataLakeStoreUri": {
 			"value": "https://projectdatalake.azuredatalakestore.net/webhdfs/v1"
 		},
@@ -30,6 +33,33 @@
 			"value": "e0765ba1-a1e1-469a-9c8b-77e45dd84c18"
 		},
 		"AzureDataLakeStore2_properties_typeProperties_resourceGroupName": {
+			"value": "assignment"
+		},
+		"inputlink_properties_typeProperties_dataLakeStoreUri": {
+			"value": "https://projectdatalake.azuredatalakestore.net/webhdfs/v1"
+		},
+		"inputlink_properties_typeProperties_tenant": {
+			"value": "a4431f4b-c207-4733-9530-34c08a9b2b8d"
+		},
+		"inputlink_properties_typeProperties_subscriptionId": {
+			"value": "e0765ba1-a1e1-469a-9c8b-77e45dd84c18"
+		},
+		"inputlink_properties_typeProperties_resourceGroupName": {
+			"value": "assignment"
+		},
+		"linkedServicefinal_properties_typeProperties_url": {
+			"value": "https://movielens.dfs.core.windows.net"
+		},
+		"outputlink_properties_typeProperties_dataLakeStoreUri": {
+			"value": "https://projectdatalake.azuredatalakestore.net/webhdfs/v1"
+		},
+		"outputlink_properties_typeProperties_tenant": {
+			"value": "a4431f4b-c207-4733-9530-34c08a9b2b8d"
+		},
+		"outputlink_properties_typeProperties_subscriptionId": {
+			"value": "e0765ba1-a1e1-469a-9c8b-77e45dd84c18"
+		},
+		"outputlink_properties_typeProperties_resourceGroupName": {
 			"value": "assignment"
 		},
 		"containerUri": {
