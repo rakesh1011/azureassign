@@ -1,0 +1,13 @@
+{
+	"name": "outputlink",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDataLakeStore",
+		"typeProperties": {
+			"dataLakeStoreUri": "https://projectdatalake.azuredatalakestore.net/webhdfs/v1",
+			"tenant": "a4431f4b-c207-4733-9530-34c08a9b2b8d",
+			"subscriptionId": "e0765ba1-a1e1-469a-9c8b-77e45dd84c18",
+			"resourceGroupName": "assignment"
+		}
+	}
+}
